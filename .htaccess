@@ -1,0 +1,11 @@
+# Настройки для Apache (XAMPP)
+
+# Установка кодировки по умолчанию
+AddDefaultCharset UTF-8
+
+# Установка временной зоны
+php_value date.timezone "Europe/Moscow"
+
+# Включение отображения ошибок (только для разработки)
+php_flag display_errors On
+php_value error_reporting E_ALL

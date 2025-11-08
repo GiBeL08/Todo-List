@@ -87,6 +87,7 @@ include 'includes/header.php';
                         Создано: <?php echo date('d.m.Y H:i', strtotime($task['created_at'])); ?>
                     </span>
                     <div class="task-actions">
+                        <a href="view.php?id=<?php echo $task['id']; ?>&page=<?php echo $currentPage; ?>" class="btn btn-view">Просмотреть</a>
                         <?php if ($task['status'] === 'В процессе'): ?>
                             <a href="actions/toggle_status.php?id=<?php echo $task['id']; ?>&page=<?php echo $currentPage; ?>" 
                                class="btn btn-complete">

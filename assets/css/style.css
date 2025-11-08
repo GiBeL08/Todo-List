@@ -113,6 +113,18 @@ h1 {
     background: #138496;
 }
 
+.btn-view {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.btn-view:hover {
+    background: #0056b3;
+}
+
 .empty-state {
     text-align: center;
     padding: 40px;
@@ -303,6 +315,83 @@ h1 {
     color: #999;
 }
 
+.task-view {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.task-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+}
+
+.task-view-header h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.task-view-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.task-info-item {
+    margin-bottom: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.task-info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.task-info-item strong {
+    color: #333;
+    margin-right: 10px;
+}
+
+.task-view-description {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.task-view-description h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.task-view-description p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.no-description {
+    color: #999;
+    font-style: italic;
+}
+
+.task-view-actions {
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 15px;
@@ -337,6 +426,21 @@ h1 {
     
     .pagination {
         flex-direction: column;
+    }
+    
+    .task-view-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .task-view-actions {
+        flex-direction: column;
+    }
+    
+    .task-view-actions .btn {
+        width: 100%;
+        margin-bottom: 5px;
     }
 }
 
