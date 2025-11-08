@@ -1,42 +1,33 @@
 <?php
 require_once 'config/database.php';
 
-// Инициализируем базу данных
 initDatabase();
 
-// Подключаемся к базе данных
 $pdo = getDBConnection();
 
-// Настройки пагинации
 $tasksPerPage = TASKS_PER_PAGE;
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $currentPage = max(1, $currentPage);
 
-// Получаем общее количество задач
 $stmt = $pdo->prepare("SELECT COUNT(*) as total FROM tasks");
 $stmt->execute();
 $totalTasks = $stmt->fetch()['total'];
 
-// Вычисляем общее количество страниц
 $totalPages = ceil($totalTasks / $tasksPerPage);
 $totalPages = max(1, $totalPages);
 
-// Проверяем, чтобы текущая страница не превышала общее количество страниц
 if ($currentPage > $totalPages) {
     $currentPage = $totalPages;
 }
 
-// Вычисляем смещение для SQL запроса
 $offset = ($currentPage - 1) * $tasksPerPage;
 
-// Получаем задачи для текущей страницы
 $stmt = $pdo->prepare("SELECT * FROM tasks ORDER BY created_at DESC LIMIT ? OFFSET ?");
 $stmt->bindValue(1, $tasksPerPage, PDO::PARAM_INT);
 $stmt->bindValue(2, $offset, PDO::PARAM_INT);
 $stmt->execute();
 $tasks = $stmt->fetchAll();
 
-// Проверяем, было ли удаление или добавление
 $deleted = isset($_GET['deleted']) && $_GET['deleted'] == '1';
 $added = isset($_GET['added']) && $_GET['added'] == '1';
 

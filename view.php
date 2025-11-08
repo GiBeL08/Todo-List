@@ -5,7 +5,6 @@ $pdo = getDBConnection();
 $error = '';
 $task = null;
 
-// Получаем ID задачи и номер страницы
 $id = $_GET['id'] ?? null;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
@@ -14,7 +13,6 @@ if (!$id) {
     exit;
 }
 
-// Получаем задачу из базы данных
 try {
     $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ?");
     $stmt->execute([$id]);

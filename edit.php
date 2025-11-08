@@ -5,7 +5,6 @@ $pdo = getDBConnection();
 $error = '';
 $task = null;
 
-// Получаем ID задачи и номер страницы
 $id = $_GET['id'] ?? null;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
@@ -14,7 +13,6 @@ if (!$id) {
     exit;
 }
 
-// Получаем задачу из базы данных
 try {
     $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ?");
     $stmt->execute([$id]);
@@ -27,22 +25,18 @@ try {
     $error = 'Ошибка при получении задачи: ' . $e->getMessage();
 }
 
-// Обработка формы редактирования задачи
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $task) {
     $title = trim($_POST['title'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $status = $_POST['status'] ?? 'В процессе';
     
-    // Валидация
     if (empty($title)) {
         $error = 'Название задачи обязательно для заполнения!';
     } else {
         try {
-            // Используем подготовленный запрос для обновления
             $stmt = $pdo->prepare("UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?");
             $stmt->execute([$title, $description, $status, $id]);
             
-            // Перенаправляем на главную страницу с номером страницы
             $redirectUrl = 'index.php';
             if ($page > 1) {
                 $redirectUrl .= '?page=' . $page;

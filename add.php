@@ -4,22 +4,18 @@ require_once 'config/database.php';
 $pdo = getDBConnection();
 $error = '';
 
-// Обработка формы добавления задачи
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $status = $_POST['status'] ?? 'В процессе';
     
-    // Валидация
     if (empty($title)) {
         $error = 'Название задачи обязательно для заполнения!';
     } else {
         try {
-            // Используем подготовленный запрос
             $stmt = $pdo->prepare("INSERT INTO tasks (title, description, status) VALUES (?, ?, ?)");
             $stmt->execute([$title, $description, $status]);
             
-            // Перенаправляем на главную страницу
             header('Location: index.php?added=1');
             exit;
         } catch (PDOException $e) {
